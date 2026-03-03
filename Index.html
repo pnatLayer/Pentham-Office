@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สำนักงานเป็นธรรม | Pentham OFFICE - บริการที่ปรึกษากฎหมายมืออาชีพ</title>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- เชื่อมต่อไฟล์ CSS ภายนอก -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-brand-light text-slate-800 dark:bg-darkBg dark:text-slate-200">
+
+    <!-- ส่วนแสดงการคัดลอกสำเร็จ -->
+    <div id="copy-toast"><i class="fas fa-check-circle mr-2"></i>คัดลอก ID เรียบร้อยแล้ว</div>
+
+    <!-- แถบเมนูนำทาง (Navigation) -->
+    <nav class="fixed w-full z-50 bg-white/95 dark:bg-brand-dark/95 backdrop-blur-md border-b border-brand-primary/10 dark:border-white/5 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="#home" class="flex-shrink-0 flex items-center space-x-2 py-2">
+                        <i class="fas fa-scale-balanced text-brand-primary dark:text-brand-gold text-2xl md:text-3xl"></i>
+                        <span class="text-sm sm:text-base md:text-xl font-bold tracking-tight text-brand-dark dark:text-white leading-tight">
+                            สำนักงานเป็นธรรม<br>
+                            <span class="text-brand-primary dark:text-brand-gold font-serif md:ml-1 text-[10px] sm:text-xs md:text-sm uppercase tracking-widest opacity-80">Pentham OFFICE</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- เมนูสำหรับหน้าจอคอมพิวเตอร์ -->
+                <div class="hidden md:flex items-center space-x-1 text-[13px] font-medium uppercase tracking-wider">
+                    <a href="#home" class="nav-link text-slate-600 dark:text-slate-300">หน้าแรก</a>
+                    <a href="#services" class="nav-link text-slate-600 dark:text-slate-300">ขอบเขตบริการ</a>
+                    <a href="#video-section" class="nav-link text-slate-600 dark:text-slate-300">วิดีโอแนะนำ</a>
+                    <a href="#about" class="nav-link text-slate-600 dark:text-slate-300">เกี่ยวกับเรา</a>
+                    
+                    <div class="px-3 flex items-center space-x-3 border-l border-brand-primary/10 dark:border-white/10 ml-2">
+                        <a href="https://www.youtube.com/@testY" target="_blank" class="text-slate-400 hover:text-youtube transition-colors text-lg px-1">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-brand-primary/5 dark:bg-slate-800 text-brand-primary dark:text-brand-gold hover:ring-2 ring-brand-primary/30 transition-all active:scale-90 border border-brand-primary/10 dark:border-white/10" title="เปลี่ยนโหมดสี">
+                            <i id="theme-toggle-dark-icon" class="fas fa-moon hidden"></i>
+                            <i id="theme-toggle-light-icon" class="fas fa-sun hidden"></i>
+                        </button>
+                    </div>
+
+                    <button onclick="toggleModal()" class="ml-4 px-6 py-2.5 bg-brand-primary dark:bg-brand-gold text-white text-xs rounded-full hover:brightness-110 transition flex items-center shadow-md active:scale-95">
+                        <i class="fas fa-comment-dots mr-2 text-base"></i> ติดต่อเรา
+                    </button>
+                </div>
+                
+                <!-- ปุ่มเมนูสำหรับหน้าจอมือถือ -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <button id="theme-toggle-mobile" class="w-10 h-10 flex items-center justify-center rounded-xl bg-brand-primary/5 dark:bg-white/5 text-brand-primary dark:text-brand-gold border border-brand-primary/10 dark:border-white/10 active:scale-90 transition-all">
+                        <i class="fas fa-circle-half-stroke text-lg"></i>
+                    </button>
+                    <button id="mobile-menu-button" class="text-slate-600 dark:text-slate-300 p-2.5 hover:bg-brand-primary/5 dark:hover:bg-white/5 rounded-xl transition-colors">
+                        <i class="fas fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- เมนูย่อยสำหรับมือถือ -->
+        <div id="mobile-menu" class="md:hidden bg-white dark:bg-brand-dark border-t border-brand-primary/10 dark:border-white/5 shadow-xl overflow-hidden">
+            <div class="flex flex-col p-4 space-y-1">
+                <a href="#home" onclick="closeMobileMenu()" class="w-full text-left px-4 py-4 text-slate-700 dark:text-slate-300 hover:bg-brand-primary/5 dark:hover:bg-slate-800 rounded-xl transition flex items-center">
+                    <i class="fas fa-home w-8 opacity-40"></i> หน้าแรก
+                </a>
+                <a href="#services" onclick="closeMobileMenu()" class="w-full text-left px-4 py-4 text-slate-700 dark:text-slate-300 hover:bg-brand-primary/5 dark:hover:bg-slate-800 rounded-xl transition flex items-center">
+                    <i class="fas fa-briefcase w-8 opacity-40"></i> ขอบเขตบริการ
+                </a>
+                <a href="#video-section" onclick="closeMobileMenu()" class="w-full text-left px-4 py-4 text-slate-700 dark:text-slate-300 hover:bg-brand-primary/5 dark:hover:bg-slate-800 rounded-xl transition flex items-center">
+                    <i class="fab fa-youtube w-8 opacity-40"></i> วิดีโอแนะนำ
+                </a>
+                <a href="#about" onclick="closeMobileMenu()" class="w-full text-left px-4 py-4 text-slate-700 dark:text-slate-300 hover:bg-brand-primary/5 dark:hover:bg-slate-800 rounded-xl transition flex items-center">
+                    <i class="fas fa-info-circle w-8 opacity-40"></i> เกี่ยวกับเรา
+                </a>
+                <div class="pt-2 mt-2 border-t border-brand-primary/10 dark:border-white/5">
+                    <button onclick="toggleModal(); closeMobileMenu()" class="w-full text-left px-4 py-5 text-brand-primary dark:text-brand-gold font-bold hover:bg-brand-primary/5 dark:hover:bg-amber-900/20 rounded-xl transition flex items-center">
+                        <i class="fas fa-paper-plane w-8"></i> เลือกช่องทางติดต่อ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ส่วนแนะนำตัว (Hero Section) -->
+    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center text-center text-white px-4 pt-32 pb-20 overflow-hidden">
+        <div class="max-w-6xl w-full">
+            <h1 class="fluid-h1 font-serif mb-6 text-white font-bold tracking-tight">
+                <span class="block mb-2 text-white text-[1.1em]">สำนักงานเป็นธรรม</span>
+                <span class="text-brand-gold whitespace-nowrap block w-full mt-4 drop-shadow-lg text-lg sm:text-2xl md:text-4xl">ช่วยวิเคราะห์คดี ปรึกษาอย่างจริงใจ</span>
+            </h1>
+            <p class="text-base sm:text-lg md:text-xl lg:text-2xl mb-10 text-slate-100 dark:text-slate-300 font-light max-w-3xl mx-auto leading-relaxed px-4 opacity-90">
+                รับปรึกษาคดีอาญา และคดีแพ่งด้วยความซื่อสัตย์ ตรงไปตรงมา เพื่อรักษาสิทธิของลูกความอย่างเต็มที่
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+                <button onclick="toggleModal()" class="w-full sm:w-auto px-10 py-4 bg-brand-primary hover:bg-brand-dark text-white font-bold rounded-full shadow-2xl transition duration-300 transform hover:-translate-y-1 flex items-center justify-center text-base md:text-lg border border-brand-primary/20">
+                    <i class="fas fa-comments mr-3 text-xl"></i> นัดปรึกษาทนายความ
+                </button>
+                <a href="#video-section" class="w-full sm:w-auto px-10 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold rounded-full transition duration-300 flex items-center justify-center text-base md:text-lg">
+                    <i class="fab fa-youtube mr-3 text-red-500"></i> ชมวิดีโอแนะนำ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ส่วนขอบเขตบริการ (Services Section) -->
+    <section id="services" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-darkBg relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 md:mb-20">
+                <span class="text-brand-primary dark:text-brand-gold font-bold tracking-[0.3em] text-[10px] md:text-xs uppercase mb-4 block">Professional Services</span>
+                <h2 class="fluid-h2 font-serif font-bold text-brand-dark dark:text-white mb-6 uppercase tracking-tight">ขอบเขตบริการ</h2>
+                <div class="w-16 md:w-20 h-1.5 bg-gradient-to-r from-brand-primary to-brand-gold mx-auto rounded-full mb-8"></div>
+                <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">เรามุ่งเน้นการให้บริการกฎหมายที่มีประสิทธิภาพ รวดเร็ว และเป็นธรรมแก่ลูกความทุกคน ด้วยความเชี่ยวชาญเฉพาะด้าน</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+                <!-- การบริการที่ 1: ปรึกษากฎหมาย -->
+                <div class="service-card bg-brand-light dark:bg-brand-dark p-8 md:p-10 rounded-[2.5rem] group cursor-default shadow-sm">
+                    <div class="card-watermark font-serif text-brand-primary/5">P</div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-brand-primary/10 dark:bg-brand-gold/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-file-signature text-brand-primary dark:text-brand-gold text-2xl group-hover:text-white"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-brand-dark dark:text-white group-hover:text-brand-primary dark:group-hover:text-brand-gold transition-colors">ปรึกษากฎหมาย</h3>
+                        <p class="text-sm md:text-base text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">บริการให้คำปรึกษา ตรวจสอบปัญหา และหาทางแก้ไข เพื่อให้คุณเข้าใจสถานะและแนวทางการดำเนินงานที่ถูกต้อง</p>
+                        <button onclick="toggleModal()" class="flex items-center space-x-2 text-brand-primary dark:text-brand-gold font-bold text-xs uppercase tracking-wider group/btn">
+                            <span>นัดเวลาปรึกษา</span>
+                            <i class="fas fa-arrow-right transition-transform group-hover/btn:translate-x-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- การบริการที่ 2: คดีอาญา -->
+                <div class="service-card bg-brand-light dark:bg-brand-dark p-8 md:p-10 rounded-[2.5rem] group cursor-default shadow-sm">
+                    <div class="card-watermark font-serif text-brand-primary/5">L</div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-brand-primary/10 dark:bg-brand-gold/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-gavel text-brand-primary dark:text-brand-gold text-2xl group-hover:text-white"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-brand-dark dark:text-white group-hover:text-brand-primary dark:group-hover:text-brand-gold transition-colors">คดีอาญา</h3>
+                        <p class="text-sm md:text-base text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">รับทำคดีอาญา ร่างคำฟ้อง คำให้การ และต่อสู้คดีตามหลักกฎหมายเพื่อพิสูจน์ความจริงและปกป้องสิทธิของคุณ</p>
+                        <button onclick="toggleModal()" class="flex items-center space-x-2 text-brand-primary dark:text-brand-gold font-bold text-xs uppercase tracking-wider group/btn">
+                            <span>ปรึกษาคดีอาญา</span>
+                            <i class="fas fa-arrow-right transition-transform group-hover/btn:translate-x-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- การบริการที่ 3: คดีแพ่ง -->
+                <div class="service-card bg-brand-light dark:bg-brand-dark p-8 md:p-10 rounded-[2.5rem] group cursor-default shadow-sm">
+                    <div class="card-watermark font-serif text-brand-primary/5">A</div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-brand-primary/10 dark:bg-brand-gold/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-hand-holding-dollar text-brand-primary dark:text-brand-gold text-2xl group-hover:text-white"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-brand-dark dark:text-white group-hover:text-brand-primary dark:group-hover:text-brand-gold transition-colors">คดีแพ่ง</h3>
+                        <p class="text-sm md:text-base text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">รับทำคดีกู้ยืม ผิดสัญญา ซื้อขาย คดีครอบครัว มรดก และคดีแพ่งทั่วไป เพื่อรักษาสิทธิและผลประโยชน์อย่างรัดกุม</p>
+                        <button onclick="toggleModal()" class="flex items-center space-x-2 text-brand-primary dark:text-brand-gold font-bold text-xs uppercase tracking-wider group/btn">
+                            <span>ปรึกษาคดีแพ่ง</span>
+                            <i class="fas fa-arrow-right transition-transform group-hover/btn:translate-x-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ส่วนแนะนำวิดีโอ (Video Showcase Section) -->
+    <section id="video-section" class="py-16 md:py-24 bg-brand-light/50 dark:bg-[#0f0905] border-y border-brand-primary/5">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="mb-12">
+                <span class="text-youtube font-bold tracking-widest text-xs uppercase mb-3 block">YouTube Channel</span>
+                <h2 class="fluid-h2 font-serif font-bold text-brand-dark dark:text-white mb-6">ความรู้กฎหมายเข้าใจง่าย</h2>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 font-light">ติดตามสาระน่ารู้และกรณีศึกษาผ่านวิดีโอรูปแบบใหม่ที่จำลองเหตุการณ์ให้เห็นภาพชัดเจน</p>
+            </div>
+            <div class="w-full max-w-4xl mx-auto">
+                <div class="video-container bg-brand-dark">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-white px-10 text-center">
+                        <i class="fab fa-youtube text-7xl text-red-600 mb-6 drop-shadow-xl"></i>
+                        <h4 class="text-2xl font-bold mb-2 font-serif uppercase tracking-wider">NRONG OFFICE Official</h4>
+                        <p class="text-sm opacity-60 mb-8 max-w-md">วิดีโอจำลองเหตุการณ์คดีพลิกด้วยดินน้ำมันและ Case Study ที่น่าสนใจ โดยสำนักงานเป็นธรรม</p>
+                        <a href="https://www.youtube.com/@testY" target="_blank" class="px-10 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full transition-all flex items-center shadow-lg">
+                            กดติดตามช่องของเรา <i class="fas fa-external-link-alt ml-3"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ส่วนเกี่ยวกับเรา (About Section) -->
+    <section id="about" class="py-16 md:py-24 bg-white dark:bg-darkBg overflow-hidden border-t border-brand-primary/5">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-10 lg:gap-20">
+                <div class="w-full md:w-2/5 flex justify-center">
+                    <div class="relative group">
+                        <div class="absolute -inset-4 border-2 border-brand-primary/20 rounded-3xl -z-10 translate-x-4 translate-y-4"></div>
+                        <div class="w-64 h-80 md:w-80 md:h-[420px] rounded-2xl overflow-hidden bg-brand-primary/10 border-4 border-white dark:border-brand-dark shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]">
+                            <!-- [รูปภาพทนายณรงค์ รัตนพันธ์] -->
+                            <img src="image/narong profile.jpg" alt="ทนายณรงค์ รัตนพันธ์" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-3/5 text-center md:text-left">
+                    <span class="text-brand-primary dark:text-brand-gold font-bold tracking-widest text-xs md:text-sm uppercase px-4 py-1.5 rounded-full bg-brand-primary/5 border border-brand-primary/10 inline-block">Chief Attorney</span>
+                    <h2 class="fluid-h2 font-serif font-bold text-brand-dark dark:text-white mt-6 mb-2 leading-tight">สำนักงานเป็นธรรม</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-brand-primary dark:text-brand-gold mb-6">ทนายณรงค์ รัตนพันธ์</h3>
+                    <p class="text-sm md:text-base lg:text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed font-light italic">
+                        "เรามุ่งมั่นให้บริการทางกฎหมายด้วยความซื่อสัตย์สุจริตเป็นที่ตั้ง พร้อมยืนเคียงข้างลูกความเพื่อรักษาสิทธิและผลประโยชน์สูงสุดตามหลักกระบวนการยุติธรรม"
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-8">
+                        <div class="flex items-center space-x-3 text-slate-700 dark:text-slate-300">
+                            <div class="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center text-[10px] flex-shrink-0 shadow-md">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="font-medium text-sm">วิเคราะห์คดีอย่างรอบด้าน</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-slate-700 dark:text-slate-300">
+                            <div class="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center text-[10px] flex-shrink-0 shadow-md">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="font-medium text-sm">สื่อสารตรงไปตรงมา</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-slate-700 dark:text-slate-300">
+                            <div class="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center text-[10px] flex-shrink-0 shadow-md">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="font-medium text-sm">รักษาความลับลูกความ</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-slate-700 dark:text-slate-300">
+                            <div class="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center text-[10px] flex-shrink-0 shadow-md">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="font-medium text-sm">รักษาสิทธิอย่างเต็มที่</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- หน้าต่างป๊อปอัปช่องทางติดต่อ (Contact Modal) -->
+    <div id="contact-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div onclick="toggleModal()" class="absolute inset-0 bg-brand-dark/80 backdrop-blur-md"></div>
+        <div id="modal-content" class="relative bg-white dark:bg-brand-dark w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden modal-enter border border-brand-primary/10">
+            <div class="flex flex-col md:flex-row min-h-[450px]">
+                <div class="w-full md:w-5/12 relative overflow-hidden bg-brand-dark text-white">
+                    <img src="image/narong profile.jpg" alt="ทนายณรงค์ รัตนพันธ์" class="w-full h-full object-cover opacity-60">
+                    <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-brand-dark to-transparent">
+                        <p class="text-[10px] text-brand-gold font-bold uppercase tracking-widest mb-1">Narong Rattanaphan</p>
+                        <h4 class="text-xl font-bold leading-tight">ทนายณรงค์ รัตนพันธ์</h4>
+                    </div>
+                </div>
+                <div class="w-full md:w-7/12 p-8 md:p-12 flex flex-col justify-center relative">
+                    <button onclick="toggleModal()" class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-white/10 text-slate-400 transition-colors">
+                        <i class="fas fa-times text-lg"></i>
+                    </button>
+                    <div class="mb-10">
+                        <h3 class="text-3xl font-serif font-bold text-brand-dark dark:text-white" id="modal-title">ติดต่อเรา</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2" id="modal-subtitle">เลือกช่องทางที่คุณสะดวกเพื่อปรึกษาทนายความ</p>
+                    </div>
+                    
+                    <!-- หน้าเลือกหลัก -->
+                    <div id="view-main" class="space-y-4">
+                        <button onclick="switchView('view-line')" class="w-full flex items-center p-4 rounded-2xl bg-line text-white shadow-lg hover:brightness-105 transition-all active:scale-95 group">
+                            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform"><i class="fab fa-line text-2xl"></i></div>
+                            <span class="font-bold text-sm tracking-wide">LINE Official Account</span>
+                            <i class="fas fa-chevron-right ml-auto text-xs opacity-50"></i>
+                        </button>
+                        <a href="@testF" target="_blank" class="w-full flex items-center p-4 rounded-2xl bg-facebook text-white shadow-lg hover:brightness-105 transition-all active:scale-95 group">
+                            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform"><i class="fab fa-facebook-f text-xl"></i></div>
+                            <span class="font-bold text-sm tracking-wide">Facebook Messenger</span>
+                            <i class="fas fa-chevron-right ml-auto text-xs opacity-50"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@testY" target="_blank" class="w-full flex items-center p-4 rounded-2xl bg-youtube text-white shadow-lg hover:brightness-105 transition-all active:scale-95 group">
+                            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform"><i class="fab fa-youtube text-xl"></i></div>
+                            <span class="font-bold text-sm tracking-wide">YouTube Channel</span>
+                            <i class="fas fa-chevron-right ml-auto text-xs opacity-50"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- หน้าแสดง LINE QR Code -->
+                    <div id="view-line" class="view-hidden text-center">
+                        <div class="bg-white p-3 rounded-2xl w-40 h-40 mx-auto mb-6 shadow-inner flex items-center justify-center border border-brand-primary/10">
+                            <!-- [QR Code ของ LINE Official] -->
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://line.me/ti/p/@testL" alt="QR" class="w-full h-full rounded-lg">
+                        </div>
+                        <p class="text-sm font-bold text-brand-dark dark:text-slate-200 mb-6 tracking-widest uppercase">ID: @testL</p>
+                        <div class="flex gap-2">
+                            <button onclick="copyToClipboard('@testL')" class="flex-1 py-4 rounded-xl bg-slate-100 dark:bg-white/5 text-xs font-bold text-slate-600 dark:text-slate-300 active:scale-95 transition-all">คัดลอก ID</button>
+                            <button onclick="switchView('view-main')" class="flex-1 py-4 rounded-xl bg-brand-primary/10 text-xs font-bold text-brand-primary active:scale-95 transition-all">ย้อนกลับ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ปุ่มลอย (Floating Action Button) -->
+    <button onclick="toggleModal()" class="fixed bottom-6 right-6 w-16 h-16 bg-brand-primary text-white rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(120,53,15,0.4)] z-[60] hover:scale-110 active:scale-95 transition duration-300">
+        <i class="fas fa-comment-dots text-2xl"></i>
+    </button>
+
+    <!-- ส่วนท้ายเว็บไซต์ (Footer) -->
+    <footer class="bg-brand-dark text-slate-400 py-16 border-t border-white/5 px-4 text-center">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-center space-x-2 mb-8 text-white font-bold text-xl">
+                <i class="fas fa-scale-balanced text-brand-gold"></i>
+                <span class="tracking-tight uppercase">NRONG OFFICE</span>
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.4em] font-bold opacity-40 mb-2">Law Office & Legal Consulting</p>
+            <p class="text-[10px] uppercase tracking-widest font-bold opacity-40">สงวนลิขสิทธิ์ © 2026 สำนักงานเป็นธรรม</p>
+        </div>
+    </footer>
+
+    <!-- เชื่อมต่อไฟล์ JavaScript ภายนอก -->
+    <script src="script.js"></script>
+</body>
+</html>
